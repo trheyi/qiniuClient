@@ -99,7 +99,7 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "build": {
-    "productName": "云存储管理客户端",
+    "productName": "象传云盘",
     "appId": "com.willnewii.qiniuclient",
     "asar": true,
     "compression": "normal",
