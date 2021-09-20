@@ -23,11 +23,11 @@ class baseBucket {
     loadState = -1
     message = null
 
-    if (isBrowser && (this.key === brand.qiniu.key || this.key === brand.tencent.key)) {
-      indexedDBHelper.openDatabase(this.key, [this.name]).then(db => {
-        window.cosDB = db
-      })
-    }
+    // if (isBrowser && (this.key === brand.qiniu.key || this.key === brand.tencent.key)) {
+    //   indexedDBHelper.openDatabase(this.key, [this.name]).then(db => {
+    //     window.cosDB = db
+    //   })
+    // }
   }
 
   init() {
@@ -154,7 +154,7 @@ class baseBucket {
       EventBus.$emit(Constants.Event.loading, {
         show: true,
         message: txt,
-        flag: 'getResources',
+        flag: 'getResources'
       })
     }
     console.time('load data')
@@ -181,7 +181,7 @@ class baseBucket {
     } else {
       EventBus.$emit(Constants.Event.loading, {
         show: false,
-        flag: 'getResources',
+        flag: 'getResources'
       })
 
       if (this.paging) {
@@ -247,7 +247,7 @@ class baseBucket {
     return {
       key: name.substring(0, name.length - 1),
       type: Constants.FileType.folder,
-      fsize: 0,
+      fsize: 0
     }
   }
 }

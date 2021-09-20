@@ -10,7 +10,7 @@ import upyun from '../cos/upyun'
 import aws from '../cos/aws'
 import jd from '../cos/jd'
 import ks3 from '../cos/ks3'
-
+import xiang from '../cos/xiang'
 import brand from '../cos/brand'
 
 const KEY_COS = 'cos_keys'
@@ -21,46 +21,50 @@ export default class CloudObjectStorage {
     this.info = {}
 
     Object.defineProperty(this, 'name', {
-      get: function () {
+      get: function() {
         return this.info.name
-      },
+      }
     })
 
     Object.defineProperty(this, 'key', {
-      get: function () {
+      get: function() {
         return this.info.key
-      },
+      }
     })
   }
 
   setBrand(key) {
     switch (key) {
-      case brand.qiniu.key:
-        this.cos = qiniu
-        break
-      case brand.tencent.key:
-        this.cos = tencent
-        break
-      case brand.qingstor.key:
-        this.cos = qing
-        break
-      case brand.aliyun.key:
-        this.cos = ali
-        break
-      case brand.upyun.key:
-        this.cos = upyun
-        break
-      case brand.aws.key:
-        this.cos = aws
-        break
-      case brand.jd.key:
-        this.cos = jd
-        break
-      case brand.ks3.key:
-        this.cos = ks3
-        break
-      case brand.minio.key:
-        this.cos = aws
+      // case brand.qiniu.key:
+      //   this.cos = qiniu
+      //   break
+      // case brand.tencent.key:
+      //   this.cos = tencent
+      //   break
+      // case brand.qingstor.key:
+      //   this.cos = qing
+      //   break
+      // case brand.aliyun.key:
+      //   this.cos = ali
+      //   break
+      // case brand.upyun.key:
+      //   this.cos = upyun
+      //   break
+      // case brand.aws.key:
+      //   this.cos = aws
+      //   break
+      // case brand.jd.key:
+      //   this.cos = jd
+      //   break
+      // case brand.ks3.key:
+      //   this.cos = ks3
+      //   break
+      // case brand.minio.key:
+      //   this.cos = aws
+      //   break
+
+      case brand.xiang.key:
+        this.cos = xiang
         break
     }
   }
@@ -111,14 +115,21 @@ export default class CloudObjectStorage {
     if (Object.keys(cos_keys).length === 0) {
       cos_keys = []
       for (let item of Object.keys(brand)) {
+        // 仅列出象传智慧
+        if (item != 'xiang') {
+          continue
+        }
+
         let data = await storagePromise.get(brand[item].key + '_key')
         if (data && data.access_key && data.secret_key) {
           data.uuid = uuid()
           cos_keys.push(Object.assign(data, brand[item]))
         }
       }
+
       await storagePromise.set(KEY_COS, cos_keys)
     }
+
     callback({ coses: cos_keys })
   }
 

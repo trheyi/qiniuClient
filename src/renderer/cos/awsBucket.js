@@ -6,7 +6,7 @@ const fs = require('fs')
 
 class Bucket extends baseBucket {
   constructor(name, cos) {
-    super(name, cos, brand.aws.key)
+    super(name, cos, 'aws')
   }
 
   /**
@@ -54,10 +54,10 @@ class Bucket extends baseBucket {
       Bucket: this.name,
       Key: _param.key,
       Body: fs.createReadStream(_param.path),
-      ContentLength: fs.statSync(_param.path).size,
+      ContentLength: fs.statSync(_param.path).size
     }
     this.cos
-      .upload(params, function (err, data) {
+      .upload(params, function(err, data) {
         callback(err, { key: _param.key })
       })
       .on('httpUploadProgress', progress => {
@@ -70,8 +70,8 @@ class Bucket extends baseBucket {
     let params = {
       Bucket: this.name,
       Delete: {
-        Objects: [],
-      },
+        Objects: []
+      }
     }
     for (let file of items) {
       params.Delete.Objects.push({ Key: file.key })
@@ -86,13 +86,13 @@ class Bucket extends baseBucket {
         .copyObject({
           CopySource: encodeURIComponent('/' + this.name + '/' + file.key), //bucket name + key
           Bucket: this.name,
-          Key: file._key,
+          Key: file._key
         })
         .promise()
       await this.cos
         .deleteObject({
           Bucket: this.name,
-          Key: file.key,
+          Key: file.key
         })
         .promise()
     }
@@ -103,14 +103,14 @@ class Bucket extends baseBucket {
     await super.preResources()
     //delimiter
     let params = {
-      Bucket: this.name,
+      Bucket: this.name
     }
 
     this._handleParams(params, option, {
       prefix: 'Prefix',
       delimiter: 'Delimiter',
       marker: 'ContinuationToken',
-      limit: 'MaxKeys',
+      limit: 'MaxKeys'
     })
 
     this.cos
@@ -120,7 +120,12 @@ class Bucket extends baseBucket {
         let files = []
         data.Contents.forEach(item => {
           if (parseInt(item.Size) !== 0) {
-            files.push(util.convertMeta(item, brand.aws.key))
+            console.log('getResources item:', item)
+            try {
+              files.push(util.convertMeta(item, 'aws'))
+            } catch (e) {
+              console.log('getResources Item Error:', e)
+            }
           }
         })
 
@@ -132,7 +137,7 @@ class Bucket extends baseBucket {
         this.postResources(
           {
             items: files,
-            marker: data.NextContinuationToken,
+            marker: data.NextContinuationToken
           },
           option
         )

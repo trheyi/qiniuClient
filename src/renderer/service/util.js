@@ -93,6 +93,7 @@ export function getFakeFolder(key) {
  * @returns {*}
  */
 export function getPostfix(path) {
+  console.log('getPostfix:', path)
   if (path.lastIndexOf('/') !== -1) {
     return path.substring(path.lastIndexOf('/') + 1, path.length)
   }
@@ -178,49 +179,61 @@ export function sequence(file1, file2) {
  * @param brandKey
  * @returns {{key: *, fsize: number, putTime: number, mimeType: string},ETag:String}
  */
-export function convertMeta(item, brandKey = 'qiniu') {
+export function convertMeta(item, brandKey = 'xiang') {
   switch (brandKey) {
-    case brand.qiniu.key:
-      item.putTime = item.putTime / 10000
-      item.ETag = item.hash
-      break
-    case brand.tencent.key:
-      item.key = item.Key
-      item.fsize = parseInt(item.Size)
-      item.putTime = new Date(item.LastModified).getTime()
-      break
-    case brand.qingstor.key:
-      item.fsize = parseInt(item.size)
-      item.putTime = new Date(item.modified * 1000).getTime()
-      item.ETag = item.etag
-      break
-    case brand.aliyun.key:
-      item.key = item.name
-      item.fsize = parseInt(item.size)
-      item.putTime = new Date(item.lastModified).getTime()
+    // case brand.qiniu.key:
+    //   item.putTime = item.putTime / 10000
+    //   item.ETag = item.hash
+    //   break
+    // case brand.tencent.key:
+    //   item.key = item.Key
+    //   item.fsize = parseInt(item.Size)
+    //   item.putTime = new Date(item.LastModified).getTime()
+    //   break
+    // case brand.qingstor.key:
+    //   item.fsize = parseInt(item.size)
+    //   item.putTime = new Date(item.modified * 1000).getTime()
+    //   item.ETag = item.etag
+    //   break
+    // case brand.aliyun.key:
+    //   item.key = item.name
+    //   item.fsize = parseInt(item.size)
+    //   item.putTime = new Date(item.lastModified).getTime()
 
-      item.ETag = item.etag
-      break
-    case brand.upyun.key:
-      item.key = item.remotePath && item.remotePath !== Constants.DELIMITER ? item.remotePath + Constants.DELIMITER + item.name : item.name
-      item.fsize = parseInt(item.size)
-      item.putTime = new Date(item.time * 1000).getTime()
-      item.ETag = item.etag
-      break
-    case brand.aws.key:
+    //   item.ETag = item.etag
+    //   break
+    // case brand.upyun.key:
+    //   item.key = item.remotePath && item.remotePath !== Constants.DELIMITER ? item.remotePath + Constants.DELIMITER + item.name : item.name
+    //   item.fsize = parseInt(item.size)
+    //   item.putTime = new Date(item.time * 1000).getTime()
+    //   item.ETag = item.etag
+    //   break
+    case 'aws':
       item.key = item.Key
       item.fsize = parseInt(item.Size)
       item.putTime = new Date(item.LastModified).getTime()
       break
-    case brand.ks3.key:
-      item.key = item.Key
-      item.fsize = parseInt(item.Size)
-      item.putTime = new Date(item.LastModified).getTime()
-      break
+    // case brand.xiang.key:
+    //   item.key = item.Key
+    //   item.fsize = parseInt(item.Size)
+    //   item.putTime = new Date(item.LastModified).getTime()
+    //   break
+    // case brand.ks3.key:
+    //   item.key = item.Key
+    //   item.fsize = parseInt(item.Size)
+    //   item.putTime = new Date(item.LastModified).getTime()
+    //   break
   }
 
+  console.log('convertMeta: ', brandKey, item)
+
   item.mimeType = mime.lookup(item.key) || ''
+
+  console.log('convertMeta mimeType: ', item.key, item.mimeType)
+
   item.displayName = getPostfix(item.key)
+
+  console.log('convertMeta displayName: ', item.key, item.displayName)
 
   return item
 }
@@ -234,7 +247,7 @@ export function notification(option = {}) {
     option.title || pkg.cnname,
     Object.assign(
       {
-        silent: true,
+        silent: true
       },
       option
     )
@@ -257,7 +270,7 @@ export async function readBlob(file) {
   return new Promise(resolve => {
     const reader = new FileReader()
     //reader读取完成后，xhr上传
-    reader.onload = function (event) {
+    reader.onload = function(event) {
       const base64 = event.target.result
       //ajax上传图片
       //返回一个base64数据

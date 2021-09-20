@@ -11,11 +11,12 @@ function init(param) {
     accessKeyId: param.access_key,
     secretAccessKey: param.secret_key,
     region: param.region,
-    endpoint: `https://s3.${param.region}.jdcloud-oss.com`,
+    endpoint: `https://s3.iqka.com`,
     s3ForcePathStyle: true,
     signatureVersion: 'v4'
   })
 
+  console.log('AWS.config', AWS.config)
   s3 = new AWS.S3(options)
 }
 
@@ -24,6 +25,7 @@ function getBuckets(callback) {
 }
 
 function generateBucket(name) {
+  console.log('generateBucket:', name)
   return new AWSBucket(name, s3)
 }
 

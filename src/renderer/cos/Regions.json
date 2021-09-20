@@ -85,6 +85,16 @@
       "region": "sa-east-1"
     }
   ],
+  "xiang": [
+    {
+      "name": "华北-北京",
+      "region": "cn-north-1"
+    },
+    {
+      "name": "华北-天津",
+      "region": "cn-north-2"
+    }
+  ],
   "jd": [
     {
       "name": "华北-北京",

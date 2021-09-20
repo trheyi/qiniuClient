@@ -14,49 +14,55 @@
  */
 
 export default {
-  qiniu: {
-    key: 'qiniu',
-    name: '七牛云',
-    features: ['urlUpload', 'customDomain', 'imageStyle', 'manualPrivateBucket', 'paging', 'refreshCDN'],
-  },
-  tencent: {
-    key: 'tencent',
-    name: '腾讯云',
-    features: ['urlUpload', 'paging'],
-  },
-  qingstor: {
-    key: 'qingstor',
-    name: '青云',
-    features: ['urlUpload', 'paging'],
-  },
-  aliyun: {
-    key: 'aliyun',
-    name: '阿里云',
-    features: ['paging'],
-  },
-  upyun: {
-    key: 'upyun',
-    name: '又拍云',
-    features: ['customDomain'],
-  },
-  aws: {
-    key: 'aws',
-    name: '亚马逊S3',
-    features: ['paging', 'manualPrivateBucket'],
-  },
-  jd: {
-    key: 'jd',
-    name: '京东云',
-    features: ['paging', 'manualPrivateBucket'],
-  },
-  ks3: {
-    key: 'ks3',
-    name: '金山云',
-    features: ['paging'],
-  },
-  minio: {
-    key: 'minio',
-    name: 'MinIO',
-    features: ['paging', 'manualPrivateBucket'],
-  },
+  // qiniu: {
+  //   key: 'qiniu',
+  //   name: '七牛云',
+  //   features: ['urlUpload', 'customDomain', 'imageStyle', 'manualPrivateBucket', 'paging', 'refreshCDN']
+  // },
+  // tencent: {
+  //   key: 'tencent',
+  //   name: '腾讯云',
+  //   features: ['urlUpload', 'paging']
+  // },
+  // qingstor: {
+  //   key: 'qingstor',
+  //   name: '青云',
+  //   features: ['urlUpload', 'paging']
+  // },
+  // aliyun: {
+  //   key: 'aliyun',
+  //   name: '阿里云',
+  //   features: ['paging']
+  // },
+  // upyun: {
+  //   key: 'upyun',
+  //   name: '又拍云',
+  //   features: ['customDomain']
+  // },
+  // aws: {
+  //   key: 'aws',
+  //   name: '亚马逊S3',
+  //   features: ['paging', 'manualPrivateBucket']
+  // },
+  // jd: {
+  //   key: 'jd',
+  //   name: '京东云',
+  //   features: ['paging', 'manualPrivateBucket']
+  // },
+
+  // ks3: {
+  //   key: 'ks3',
+  //   name: '金山云',
+  //   features: ['paging']
+  // },
+  // minio: {
+  //   key: 'minio',
+  //   name: 'MinIO',
+  //   features: ['paging', 'manualPrivateBucket']
+  // },
+  xiang: {
+    key: 'xiang',
+    name: '象传智慧',
+    features: ['manualPrivateBucket']
+  }
 }
